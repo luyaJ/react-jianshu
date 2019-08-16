@@ -9,7 +9,8 @@ import { actionCreators } from './store'
 class Header extends Component {
 
   getListArea() {
-    if (this.props.focused) {
+    const { focused, list } = this.props;
+    if (focused) {
       return (
         <SearchInfo>
           <SearchTitle>
@@ -18,7 +19,7 @@ class Header extends Component {
           </SearchTitle>
           <SearchInfoList>
             {
-              this.props.list.map((item) => {
+              list.map((item) => {
                 return <SearchInfoItem key={item}>{item}</SearchInfoItem>
               }) 
             }
@@ -31,6 +32,7 @@ class Header extends Component {
   }
 
   render() {
+    const { focused, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -42,13 +44,13 @@ class Header extends Component {
             <i className="iconfont">&#xe636;</i>
           </NavItem>
           <SearchWrapper>
-            <CSSTransition in={this.props.focused} classNames='slide' timeout={200}>
-              <NavSearch className={this.props.focused ? 'focused' : ''}
-                onFocus={this.props.handleInputFocus}
-                onBlur={this.props.handleInputBlur}>
+            <CSSTransition in={focused} classNames='slide' timeout={200}>
+              <NavSearch className={focused ? 'focused' : ''}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}>
               </NavSearch>
             </CSSTransition>
-            <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe651;</i>
+            <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe651;</i>
             {this.getListArea()}
           </SearchWrapper>
         </Nav>
