@@ -3,7 +3,10 @@ import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
   focused: false,
-  list: []
+  mouseIn: false,
+  list: [],
+  page: 1,
+  totalPage: 1
 });
 
 // 纯函数：给定固定的输入就有固定的输出，无副作用
@@ -15,7 +18,11 @@ export default (state = defaultState, action) => {
     case constants.SEARCH_BLUR:
       return state.set('focused', false);
     case constants.CHANGE_LIST:
-      return state.set('list', action.data);
+      return state.set('list', action.data).set('totalPage', action.totalPage);
+    case constants.MOUSE_ENTER:
+      return state.set('mouseIn', true);
+    case constants.MOUSE_LEAVE:
+      return state.set('mouseIn', false);
     default:
       return state;
   }

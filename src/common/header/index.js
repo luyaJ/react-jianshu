@@ -9,20 +9,26 @@ import { actionCreators } from './store'
 class Header extends Component {
 
   getListArea() {
-    const { focused, list } = this.props;
+    const { focused, list, page, handleMouseEnter, handleMouseLeave } = this.props;
+    // list是immutable对象，需要使用toJS转换成普通的JS
+    const newList = list.toJS();
+    const pageList = [];
+
+    for(let i = (page-1)*10; i < page*10; i++) {
+      pageList.push(
+        <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+      )
+    }
+
     if (focused) {
       return (
-        <SearchInfo>
+        <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchTitle>
             热门搜索
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchTitle>
           <SearchInfoList>
-            {
-              list.map((item) => {
-                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-              }) 
-            }
+            {pageList}
           </SearchInfoList>
         </SearchInfo>
       )
@@ -32,7 +38,7 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, mouseIn, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -69,7 +75,9 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    mouseIn: state.getIn(['header', 'mouseIn']),
   }
 }
 
@@ -81,6 +89,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur());
+    },
+    handleMouseEnter() {
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave() {
+      dispatch(actionCreators.mouseLeave());
     }
   }
 }
