@@ -17,7 +17,7 @@ export const Logo = styled.a.attrs({
   width: 100px;
   background: url(${navLogo});
   background-size: contain;
-` 
+`
 
 export const Nav = styled.div`
   width: 960px;
@@ -107,23 +107,23 @@ export const SearchInfo = styled.div`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 `
 
-export const SearchTitle = styled.div`{
+export const SearchTitle = styled.div`
   margin: 20px 0 15px 0;
   lin-height: 20px;
   font-size: 14px;
   color: #969696;
-}`
+`
 
-export const SearchInfoList = styled.div`{
+export const SearchInfoList = styled.div`
   overflow: hidden;
-}`
+`
 
-export const SearchInfoSwitch = styled.div`{
+export const SearchInfoSwitch = styled.div`
   float: right;
   font-size: 13px;
-}`
+`
 
-export const SearchInfoItem = styled.a`{
+export const SearchInfoItem = styled.a`
   display: block;
   float: left;
   line-height: 20px;
@@ -134,7 +134,7 @@ export const SearchInfoItem = styled.a`{
   border-radius: 2px;
   margin-right: 10px;
   margin-bottom: 15px;
-}`
+`
 
 export const Addition = styled.div`
   position: absolute;
