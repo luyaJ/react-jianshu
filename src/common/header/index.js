@@ -12,6 +12,9 @@ class header extends Component {
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
+    this.storeChange = this.storeChange.bind(this);
+    store.subscribe(this.storeChange);  //订阅redux状态
   }
 
   getListArea() {
@@ -78,18 +81,23 @@ class header extends Component {
   }
 
   handleInputFocus(list) {
-    this.setState({
+    const action = {
+      type: 'handle_input_focus',
       focused: true
-    })
+    }
+    store.dispatch(action);
+
     // 函数传参 避免无意义的请求发送，提升性能
     if (list.length === 0) {
       axios.get('/api/headerList.json')
       .then((res) => {
         if (res.data.success) {
-          this.setState({
+          const action = {
+            type: 'get_data',
             list: res.data.data,
             totalPage: Math.ceil(res.data.data.length / 10) - 1
-          })
+          }
+          store.dispatch(action);
         }
       })
       .catch((err) => console.log(err));
@@ -97,21 +105,27 @@ class header extends Component {
   }
 
   handleInputBlur() {
-    this.setState({
+    const action = {
+      type: 'handle_input_blur',
       focused: false
-    })
+    }
+    store.dispatch(action);
   }
 
   handleMouseEnter() {
-    this.setState({
+    const action = {
+      type: 'handle_mouse_enter',
       mouseIn: true
-    })
+    }
+    store.dispatch(action);
   }
 
   handleMouseLeave() {
-    this.setState({
+    const action = {
+      type: 'handle_mouse_leave',
       mouseIn: false
-    })
+    }
+    store.dispatch(action);
   }
 
   handleChangePage(page, totalPage, spin) {
@@ -126,14 +140,22 @@ class header extends Component {
  
     // 换页功能
     if (page < totalPage) {
-      this.setState({
+      const action = {
+        type: 'handle_change_page',
         page: page + 1
-      })
+      }
+      store.dispatch(action);
     } else {
-      this.setState({
+      const action = {
+        type: 'handle_change_page',
         page: 0
-      })
+      }
+      store.dispatch(action);
     }
+  }
+
+  storeChange() {
+    this.setState(store.getState());
   }
 }
 
