@@ -3,17 +3,12 @@ import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch,
   Addition, Button, SearchInfo, SearchTitle, SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style'
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
+import store from '../../store/index'
 
 class header extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      focused: false,
-      mouseIn: false,
-      list: [],
-      page: 0,
-      totalPage: 1
-    }
+    this.state = store.getState();
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
