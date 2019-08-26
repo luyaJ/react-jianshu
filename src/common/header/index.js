@@ -87,15 +87,8 @@ class header extends Component {
 
     // 函数传参 避免无意义的请求发送，提升性能
     if (list.length === 0) {
-      axios.get('/api/headerList.json')
-      .then((res) => {
-        if (res.data.success) {
-          const totalPage =  Math.ceil(res.data.data.length / 10) - 1;
-          const action = actionCreators.getDataAction(res.data.data, totalPage)
-          store.dispatch(action);
-        }
-      })
-      .catch((err) => console.log(err));
+      const action = actionCreators.getList();
+      store.dispatch(action);
     }
   }
 

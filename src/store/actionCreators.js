@@ -1,4 +1,21 @@
 import * as actionTypes from './actionTypes';
+import * as actionCreators from './actionCreators'
+import axios from 'axios';
+
+// 使用redux-thunk的好处：可以把请求放在actionCreators.js中，以前action是对象，现在是函数
+export const getList = () => {
+  return (dispatch) => {
+    axios.get('/api/headerList.json')
+    .then((res) => {
+      if (res.data.success) {
+        const totalPage = Math.ceil(res.data.data.length / 10) - 1;
+        const action = actionCreators.getDataAction(res.data.data, totalPage);
+        dispatch(action);
+      }
+    })
+    .catch((err) => console.log(err));
+  }
+}
 
 export const handleInputFocusAction = (value) => ({
   type: actionTypes.HANDLE_INPUT_FOCUS,
