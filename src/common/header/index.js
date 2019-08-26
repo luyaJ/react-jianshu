@@ -4,7 +4,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch,
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import store from '../../store/index';
-import * as actionTypes from '../../store/actionTypes';
+import * as actionCreators from '../../store/actionCreators';
 
 class header extends Component {
   constructor(props) {
@@ -82,10 +82,7 @@ class header extends Component {
   }
 
   handleInputFocus(list) {
-    const action = {
-      type: actionTypes.HANDLE_INPUT_FOCUS,
-      focused: true
-    }
+    const action = actionCreators.handleInputFocusAction(true);
     store.dispatch(action);
 
     // 函数传参 避免无意义的请求发送，提升性能
@@ -93,11 +90,8 @@ class header extends Component {
       axios.get('/api/headerList.json')
       .then((res) => {
         if (res.data.success) {
-          const action = {
-            type: actionTypes.GET_DATA,
-            list: res.data.data,
-            totalPage: Math.ceil(res.data.data.length / 10) - 1
-          }
+          const totalPage =  Math.ceil(res.data.data.length / 10) - 1;
+          const action = actionCreators.getDataAction(res.data.data, totalPage)
           store.dispatch(action);
         }
       })
@@ -106,26 +100,17 @@ class header extends Component {
   }
 
   handleInputBlur() {
-    const action = {
-      type: actionTypes.HANDLE_INPUT_BLUR,
-      focused: false
-    }
+    const action = actionCreators.handleInputBlurAction(false)
     store.dispatch(action);
   }
 
   handleMouseEnter() {
-    const action = {
-      type: actionTypes.HANDLE_MOUSE_ENTER,
-      mouseIn: true
-    }
+    const action = actionCreators.handleMouseEnterAction(true);
     store.dispatch(action);
   }
 
   handleMouseLeave() {
-    const action = {
-      type: actionTypes.HANDLE_MOUSE_LEAVE,
-      mouseIn: false
-    }
+    const action = actionCreators.handleMouseLeaveAction(false);
     store.dispatch(action);
   }
 
@@ -141,16 +126,10 @@ class header extends Component {
  
     // 换页功能
     if (page < totalPage) {
-      const action = {
-        type: actionTypes.HANDLE_CHANGE_PAGE,
-        page: page + 1
-      }
+      const action = actionCreators.handleChangePage(page + 1);
       store.dispatch(action);
     } else {
-      const action = {
-        type: actionTypes.HANDLE_CHANGE_PAGE,
-        page: 0
-      }
+      const action = actionCreators.handleChangePage(0);
       store.dispatch(action);
     }
   }
