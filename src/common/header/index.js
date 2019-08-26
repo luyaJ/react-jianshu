@@ -3,7 +3,8 @@ import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch,
   Addition, Button, SearchInfo, SearchTitle, SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style'
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
-import store from '../../store/index'
+import store from '../../store/index';
+import * as actionTypes from '../../store/actionTypes';
 
 class header extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ class header extends Component {
 
   handleInputFocus(list) {
     const action = {
-      type: 'handle_input_focus',
+      type: actionTypes.HANDLE_INPUT_FOCUS,
       focused: true
     }
     store.dispatch(action);
@@ -93,7 +94,7 @@ class header extends Component {
       .then((res) => {
         if (res.data.success) {
           const action = {
-            type: 'get_data',
+            type: actionTypes.GET_DATA,
             list: res.data.data,
             totalPage: Math.ceil(res.data.data.length / 10) - 1
           }
@@ -106,7 +107,7 @@ class header extends Component {
 
   handleInputBlur() {
     const action = {
-      type: 'handle_input_blur',
+      type: actionTypes.HANDLE_INPUT_BLUR,
       focused: false
     }
     store.dispatch(action);
@@ -114,7 +115,7 @@ class header extends Component {
 
   handleMouseEnter() {
     const action = {
-      type: 'handle_mouse_enter',
+      type: actionTypes.HANDLE_MOUSE_ENTER,
       mouseIn: true
     }
     store.dispatch(action);
@@ -122,7 +123,7 @@ class header extends Component {
 
   handleMouseLeave() {
     const action = {
-      type: 'handle_mouse_leave',
+      type: actionTypes.HANDLE_MOUSE_LEAVE,
       mouseIn: false
     }
     store.dispatch(action);
@@ -141,13 +142,13 @@ class header extends Component {
     // 换页功能
     if (page < totalPage) {
       const action = {
-        type: 'handle_change_page',
+        type: actionTypes.HANDLE_CHANGE_PAGE,
         page: page + 1
       }
       store.dispatch(action);
     } else {
       const action = {
-        type: 'handle_change_page',
+        type: actionTypes.HANDLE_CHANGE_PAGE,
         page: 0
       }
       store.dispatch(action);
