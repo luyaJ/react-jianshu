@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { GlobalStyle } from './style.js';
-import Header from './common/header/index'
-import store from './store/index';
+import Header from './common/header/index';
+import store from './store';
 
 class App extends Component {
   render() {
