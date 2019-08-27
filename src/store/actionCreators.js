@@ -37,7 +37,7 @@ export const handleMouseLeaveAction = (value) => ({
   mouseIn: value
 })
 
-export const handleChangePage = (page) => ({
+export const handleChangePageAction = (page) => ({
   type: actionTypes.HANDLE_CHANGE_PAGE,
   page
 })

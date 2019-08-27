@@ -122,10 +122,10 @@ const mapDispatchToProps = (dispatch) => ({
  
     // 换页功能
     if (page < totalPage) {
-      const action = actionCreators.handleChangePage(page + 1);
+      const action = actionCreators.handleChangePageAction(page + 1);
       dispatch(action);
     } else {
-      const action = actionCreators.handleChangePage(0);
+      const action = actionCreators.handleChangePageAction(0);
       dispatch(action);
     }
   }
