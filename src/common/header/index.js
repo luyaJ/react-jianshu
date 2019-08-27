@@ -2,38 +2,33 @@ import React, { Component } from 'react';
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch,
   Addition, Button, SearchInfo, SearchTitle, SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style'
 import { CSSTransition } from 'react-transition-group';
-import axios from 'axios';
 import store from '../../store/index';
 import * as actionCreators from '../../store/actionCreators';
+import { connect } from 'react-redux';
 
 class header extends Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
-    this.handleInputBlur = this.handleInputBlur.bind(this);
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-
-    this.storeChange = this.storeChange.bind(this);
-    store.subscribe(this.storeChange);  //订阅redux状态
   }
 
   getListArea() {
+    const { focused, mouseIn, list, page, totalPage, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
     const pageList = [];
 
-    if (this.state.list.length) {
-      for (let i = this.state.page*10; i < (this.state.page+1)*10; i++) {
+    if (list.length) {
+      for (let i = page*10; i < (page+1)*10; i++) {
         pageList.push(
-          <SearchInfoItem key={this.state.list[i]}>{this.state.list[i]}</SearchInfoItem>
+          <SearchInfoItem key={list[i]}>{list[i]}</SearchInfoItem>
         )
       }
     }
     
-    if (this.state.focused || this.state.mouseIn) {
+    if (focused || mouseIn) {
       return (
-        <SearchInfo onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+        <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchTitle>热门搜索
-            <SearchInfoSwitch onClick={this.handleChangePage.bind(this, this.state.page, this.state.totalPage, this.spinIcon)}>
+            <SearchInfoSwitch onClick={handleChangePage(page, totalPage, this.spinIcon)}>
               <i ref={(icon) => this.spinIcon = icon} className="iconfont spin">&#xe857;</i>
               换一批
             </SearchInfoSwitch>
@@ -49,6 +44,7 @@ class header extends Component {
   }
 
   render() {
+    const { focused, list, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -60,13 +56,13 @@ class header extends Component {
             <i className="iconfont">&#xe636;</i>
           </NavItem>
           <SearchWrapper>
-            <CSSTransition classNames="slide" in={this.state.focused} timeout={200}>
-              <NavSearch className={this.state.focused ? 'focused' : ''}
-                onFocus={this.handleInputFocus.bind(this, this.state.list)}
-                onBlur={this.handleInputBlur}>
+            <CSSTransition classNames="slide" in={focused} timeout={200}>
+              <NavSearch className={focused ? 'focused' : ''}
+                onFocus={handleInputFocus(list)}
+                onBlur={handleInputBlur}>
               </NavSearch>
             </CSSTransition>
-            <i className={this.state.focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe651;</i>
+            <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe651;</i>
             { this.getListArea() }
           </SearchWrapper>
         </Nav>
@@ -80,7 +76,18 @@ class header extends Component {
       </HeaderWrapper>
     );
   }
+}
 
+// 映射
+const mapStateToProps = (state) => ({
+  focused: state.focused,
+  mouseIn: state.mouseIn,
+  list: state.list,
+  page: state.page,
+  totalPage: state.totalPage
+})
+
+const mapDispatchToProps = (dispatch) => ({
   handleInputFocus(list) {
     const action = actionCreators.handleInputFocusAction(true);
     store.dispatch(action);
@@ -90,23 +97,19 @@ class header extends Component {
       const action = actionCreators.getList();
       store.dispatch(action);
     }
-  }
-
+  },
   handleInputBlur() {
     const action = actionCreators.handleInputBlurAction(false)
     store.dispatch(action);
-  }
-
+  },
   handleMouseEnter() {
     const action = actionCreators.handleMouseEnterAction(true);
     store.dispatch(action);
-  }
-
+  },
   handleMouseLeave() {
     const action = actionCreators.handleMouseLeaveAction(false);
     store.dispatch(action);
-  }
-
+  },
   handleChangePage(page, totalPage, spin) {
     // 换一换的旋转功能
     let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
@@ -126,10 +129,6 @@ class header extends Component {
       store.dispatch(action);
     }
   }
+})
 
-  storeChange() {
-    this.setState(store.getState());
-  }
-}
-
-export default header;
+export default connect(mapStateToProps, mapDispatchToProps)(header);
