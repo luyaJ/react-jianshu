@@ -29,7 +29,7 @@ class header extends Component {
         <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchTitle>热门搜索
             <SearchInfoSwitch onClick={handleChangePage(page, totalPage, this.spinIcon)}>
-              <i ref={(icon) => this.spinIcon = icon} className="iconfont spin">&#xe857;</i>
+              <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe857;</i>
               换一批
             </SearchInfoSwitch>
           </SearchTitle>
@@ -90,25 +90,25 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleInputFocus(list) {
     const action = actionCreators.handleInputFocusAction(true);
-    store.dispatch(action);
+    dispatch(action);
 
     // 函数传参 避免无意义的请求发送，提升性能
     if (list.length === 0) {
       const action = actionCreators.getList();
-      store.dispatch(action);
+      dispatch(action);
     }
   },
   handleInputBlur() {
     const action = actionCreators.handleInputBlurAction(false)
-    store.dispatch(action);
+    dispatch(action);
   },
   handleMouseEnter() {
     const action = actionCreators.handleMouseEnterAction(true);
-    store.dispatch(action);
+    dispatch(action);
   },
   handleMouseLeave() {
     const action = actionCreators.handleMouseLeaveAction(false);
-    store.dispatch(action);
+    dispatch(action);
   },
   handleChangePage(page, totalPage, spin) {
     // 换一换的旋转功能
@@ -123,10 +123,10 @@ const mapDispatchToProps = (dispatch) => ({
     // 换页功能
     if (page < totalPage) {
       const action = actionCreators.handleChangePage(page + 1);
-      store.dispatch(action);
+      dispatch(action);
     } else {
       const action = actionCreators.handleChangePage(0);
-      store.dispatch(action);
+      dispatch(action);
     }
   }
 })
