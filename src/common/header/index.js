@@ -4,6 +4,7 @@ import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper,
   NavSearch, Addition, Button, SearchInfo, SearchTitle, 
   SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style'
 import { CSSTransition } from 'react-transition-group';
+import { actionCreators } from './store';
 
 class Header extends Component {
   render() {
@@ -49,16 +50,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus() {
-      const action = {
-        type: 'handle_input_focus'
-      };
-      dispatch(action);
+      dispatch(actionCreators.handleInputFocusAction());
     },
     handleInputBlur() {
-      const action = {
-        type: 'handle_input_blur'
-      };
-      dispatch(action);
+      dispatch(actionCreators.handleInputBlurAction());
     }
   }
 }

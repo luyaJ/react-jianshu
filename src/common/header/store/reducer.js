@@ -1,14 +1,16 @@
+import * as actionTypes from './actionTypes';
+
 const defaultState = {
   focused: false
 }
 
 export default (state = defaultState, action) => {
-  if (action.type === 'handle_input_focus') {
+  if (action.type === actionTypes.HANDLE_INPUT_FOCUS) {
     return { 
       focused: true
     }
   }
-  if (action.type === 'handle_input_blur') {
+  if (action.type === actionTypes.HANDLE_INPUT_BLUR) {
     return {
       focused: false
     }
