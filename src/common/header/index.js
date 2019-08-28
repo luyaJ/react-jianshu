@@ -45,7 +45,8 @@ const mapStateToProps = (state) => {
   return {
     // focused: state.header.focused
     // 因为使用了immutable，那么不可以直接用点号来取得focused的值，需要用get()方法
-    focused: state.header.get('focused')
+    // focused: state.get('header').get('focused') 和下面的一样
+    focused: state.getIn(['header', 'focused'])
   }
 }
 
