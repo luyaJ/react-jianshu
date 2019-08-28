@@ -43,7 +43,9 @@ class Header extends Component {
 // 把store中的state映射到props里面去了
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    // focused: state.header.focused
+    // 因为使用了immutable，那么不可以直接用点号来取得focused的值，需要用get()方法
+    focused: state.header.get('focused')
   }
 }
 
