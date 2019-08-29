@@ -48,12 +48,12 @@ export const GlobalStyle = createGlobalStyle`
   // 图标
   @font-face {
     font-family: 'iconfont';  /* project id 1348059 */
-    src: url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.eot');
-    src: url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1348059_d0mdlksxstl.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.eot');
+    src: url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1348059_gcqle89hf6k.svg#iconfont') format('svg');
   }
   .iconfont {
     font-family: "iconfont" !important;
