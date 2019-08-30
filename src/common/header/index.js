@@ -25,7 +25,7 @@ class Header extends Component {
       return (
         <SearchInfo 
           onMouseEnter={handleMouseEnter}
-          omMouseLeave={handleMouseLeave}
+          onMouseLeave={handleMouseLeave}
         >
           <SearchTitle>
             热门搜索
@@ -44,7 +44,7 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, list, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper>
         <Logo></Logo>
@@ -58,7 +58,7 @@ class Header extends Component {
           <SearchWrapper>
             <CSSTransition in={focused} classNames='slide' timeout={200}>
               <NavSearch className={focused ? 'focused' : ''}
-                onFocus={handleInputFocus}
+                onFocus={() => handleInputFocus(list)}
                 onBlur={handleInputBlur}>
               </NavSearch>
             </CSSTransition>
@@ -89,14 +89,16 @@ const mapStateToProps = (state) => {
     page: state.getIn(['header', 'page']),
     totalPage: state.getIn(['header', 'totalPage']),
     mouseIn: state.getIn(['header', 'mouseIn'])
-
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFocus() {
-      dispatch(actionCreators.getListAction());
+    handleInputFocus(list) {
+      console.log(list)
+      if (list.size === 0) {
+        dispatch(actionCreators.getListAction());
+      }
       dispatch(actionCreators.handleInputFocusAction());
     },
     handleInputBlur() {
@@ -117,7 +119,7 @@ const mapDispatchToProps = (dispatch) => {
       }
       spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
 
-      if (page < totalPage) {
+      if (page < totalPage - 1) {
         dispatch(actionCreators.changePageAction(page+1))
       } else {
         dispatch(actionCreators.changePageAction(0))
