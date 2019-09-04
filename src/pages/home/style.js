@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { scryptSync } from 'crypto';
 
 export const HomeWrapper = styled.div`
   overflow: hidden;
@@ -19,7 +18,7 @@ export const HomeLeft = styled.div`
 `
 
 export const HomeRight = styled.div`
-  width: 240px;
+  width: 280px;
   float: right;
 `
 
@@ -82,3 +81,23 @@ export const ListInfo = styled.div`
   }
 `
 
+export const RecommendWrapper = styled.div`
+  margin: 30px 0;
+  width: 280px;
+`
+
+export const RecommendItem = styled.div`
+  width: 278px;
+  height: 50px;
+  background: url(${(props) => props.imgUrl});
+  background-size: contain;
+`
+
+export const WritterWrapper = styled.div`
+  width: 278px;
+  border: 1px solid #dcdcdc;
+  border-radius: 3px;
+  height: 300px;
+  lin-height: 300px;
+  text-align: center;
+`
