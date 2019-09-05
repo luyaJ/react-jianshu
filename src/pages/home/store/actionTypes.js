@@ -1,0 +1,1 @@
+export const CHANEG_HOME_DATA = 'home/CHANEG_HOME_DATA'

@@ -1,4 +1,4 @@
-// import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes';
 import { fromJS } from 'immutable'
 
 // 使用fromJS 把state变成不可以修改的值
@@ -10,7 +10,7 @@ const defaultState = fromJS({
 
 export default (state = defaultState, action) => {
   switch(action.type) {
-    case 'change_home_data':
+    case actionTypes.CHANEG_HOME_DATA:
       return state.merge({
         topicList: fromJS(action.topicList),
         articleList: fromJS(action.articleList),
