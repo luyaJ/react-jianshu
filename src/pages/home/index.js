@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { HomeWrapper, HomeLeft, HomeRight, BackTop } from './style';
 import Topic from './components/Topic';
@@ -6,9 +6,8 @@ import List from './components/List';
 import Writer from './components/Writer';
 import Recommend from './components/Recommend';
 import { actionCreators } from './store';
-import { CSSTransition } from 'react-transition-group';
 
-class Home extends Component {
+class Home extends PureComponent {
   render() {
     return (
       <HomeWrapper>
